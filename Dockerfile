@@ -13,8 +13,6 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libicu-dev \
-    libwebp-dev \
-    libxpm-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         gd \
@@ -29,19 +27,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY composer.json composer.lock ./
+# Copy the ENTIRE project first
+COPY . .
 
-RUN php -m
-
+# Then install dependencies
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
     --no-interaction
-
-COPY . .
-
-RUN cp .env.example .env || true
-RUN php artisan key:generate --force || true
 
 EXPOSE 8000
 
