@@ -29,6 +29,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
+RUN rm -f bootstrap/cache/config.php
+
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
@@ -39,4 +41,4 @@ RUN php artisan package:discover --ansi || true
 
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
