@@ -31,7 +31,13 @@ WORKDIR /var/www/html
 COPY . .
 
 # Then install dependencies
-RUN composer install \
+RUN pwd && \
+    ls -la && \
+    echo "========== /var/www/html ==========" && \
+    ls -la /var/www/html && \
+    echo "========== artisan ==========" && \
+    cat artisan && \
+    composer install \
     --no-dev \
     --optimize-autoloader \
     --no-interaction
