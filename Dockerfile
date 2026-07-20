@@ -27,20 +27,15 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy the ENTIRE project first
 COPY . .
 
-# Then install dependencies
-RUN pwd && \
-    ls -la && \
-    echo "========== /var/www/html ==========" && \
-    ls -la /var/www/html && \
-    echo "========== artisan ==========" && \
-    cat artisan && \
-    composer install \
+RUN composer install \
     --no-dev \
     --optimize-autoloader \
-    --no-interaction
+    --no-interaction \
+    --no-scripts
+
+RUN php artisan package:discover --ansi || true
 
 EXPOSE 8000
 
