@@ -260,8 +260,8 @@ public function fineCheckout(Fine $fine)
 
     if ($fine->fine_amount < 50) {
             $setting = \App\Models\Setting::first();
-            $contact = $setting->contact_phone
-                ?? $setting->contact_email
+            $contact = $setting?->contact_phone
+                ?? $setting?->contact_email
                 ?? 'the admin';
 
             return redirect()

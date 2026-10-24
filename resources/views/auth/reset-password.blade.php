@@ -6,6 +6,7 @@
     <title>Reset Password | BookNest</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="icon"
@@ -68,12 +69,18 @@
 
                     <label>New Password <span class="text-danger">*</span></label>
 
-                    <input type="password"
-       name="password"
-       class="form-control"
-       maxlength="8">
+                    <div class="password-wrapper">
+                        <input type="password"
+                               name="password"
+                               id="resetPassword"
+                               class="form-control"
+                               maxlength="12">
+                        <button class="password-toggle-btn" type="button" onclick="togglePasswordVisibility('resetPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
        <small class="text-secondary">
-Minimum 8 characters
+8-12 characters
 </small>
 
 @error('password')
@@ -88,10 +95,16 @@ Minimum 8 characters
 
                     <label>Confirm Password <span class="text-danger">*</span></label>
 
-                    <input type="password"
-       name="password_confirmation"
-       class="form-control"
-       maxlength="8">
+                    <div class="password-wrapper">
+                        <input type="password"
+                               name="password_confirmation"
+                               id="resetConfirmPassword"
+                               class="form-control"
+                               maxlength="12">
+                        <button class="password-toggle-btn" type="button" onclick="togglePasswordVisibility('resetConfirmPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
 
                 </div>
 
@@ -126,5 +139,20 @@ Minimum 8 characters
 
 </div>
 
+<script>
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+</script>
 </body>
 </html>

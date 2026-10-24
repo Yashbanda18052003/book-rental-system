@@ -31,61 +31,67 @@
 
     <ul>
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('books.index') }}">
+            <a href="{{ route('books.index') }}" class="{{ request()->routeIs('books.index') ? 'active' : '' }}">
                 <i class="bi bi-book"></i>
                 <span>Books</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('books.create') }}">
+            <a href="{{ route('books.create') }}" class="{{ request()->routeIs('books.create') ? 'active' : '' }}">
                 <i class="bi bi-plus-circle"></i>
                 <span>Add Book</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.rentals') }}">
+            <a href="{{ route('admin.rentals') }}" class="{{ request()->routeIs('admin.rentals') ? 'active' : '' }}">
                 <i class="bi bi-journal-check"></i>
                 <span>Rentals</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.reservations') }}">
+            <a href="{{ route('admin.reservations') }}" class="{{ request()->routeIs('admin.reservations') ? 'active' : '' }}">
                 <i class="bi bi-calendar-check"></i>
                 <span>Reservations</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('plans.index') }}">
+            <a href="{{ route('plans.index') }}" class="{{ request()->routeIs('plans.index') ? 'active' : '' }}">
                 <i class="bi bi-award"></i>
                 <span>Membership Plans</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.subscriptions') }}">
+            <a href="{{ route('plans.create') }}" class="{{ request()->routeIs('plans.create') ? 'active' : '' }}">
+                <i class="bi bi-plus-circle"></i>
+                <span>Add Membership Plan</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.subscriptions') }}" class="{{ request()->routeIs('admin.subscriptions') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i>
                 <span>Subscriptions</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.fines') }}">
+            <a href="{{ route('admin.fines') }}" class="{{ request()->routeIs('admin.fines') ? 'active' : '' }}">
                 <i class="bi bi-cash-stack"></i>
                 <span>Fines</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.payments') }}">
+            <a href="{{ route('admin.payments') }}" class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                 <i class="bi bi-wallet2"></i>
                 <span>Payments</span>
             </a>
         </li>
         <li>
-            <a href="{{ route('reports') }}">
+            <a href="{{ route('reports') }}" class="{{ request()->routeIs('reports') ? 'active' : '' }}">
                 <i class="bi bi-bar-chart"></i>
                 <span>Reports</span>
             </a>
@@ -161,15 +167,67 @@
                 </ul>
             </div>
 
-            <a href="{{ route('admin.profile') }}" class="btn btn-warning d-inline-flex align-items-center gap-1">
-                <i class="bi bi-person-fill"></i> <span class="d-none d-md-inline">Profile</span>
-            </a>
-            <a href="{{ route('admin.settings') }}" class="btn btn-secondary d-inline-flex align-items-center gap-1">
-                <i class="bi bi-gear-fill"></i> <span class="d-none d-md-inline">Settings</span>
-            </a>
-            <a href="javascript:void(0)" id="logoutBtn" class="btn btn-danger d-inline-flex align-items-center gap-1">
-                <i class="bi bi-box-arrow-right"></i> <span class="d-none d-md-inline">Logout</span>
-            </a>
+            {{-- Admin Profile Dropdown --}}
+            <div class="dropdown ms-1">
+                <button class="btn profile-dropdown-btn"
+                        type="button"
+                        id="adminProfileDropdown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <div class="user-avatar-wrapper">
+                        @if(auth()->user()->profile_picture_url)
+                            <img src="{{ auth()->user()->profile_picture_url }}" alt="{{ auth()->user()->name }}">
+                        @else
+                            <span class="user-avatar-initial">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                        @endif
+                    </div>
+                    <span class="d-none d-md-inline fw-semibold text-white ms-1">{{ auth()->user()->name }}</span>
+                    <span class="badge bg-warning text-dark ms-1 d-none d-md-inline-block" style="font-size:0.68rem; padding: 2px 6px;">Admin</span>
+                    <i class="bi bi-chevron-down text-secondary small ms-1"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow user-dropdown-menu" aria-labelledby="adminProfileDropdown">
+                    <li class="user-dropdown-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="user-avatar-wrapper lg">
+                                @if(auth()->user()->profile_picture_url)
+                                    <img src="{{ auth()->user()->profile_picture_url }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <span class="user-avatar-initial lg">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                                @endif
+                            </div>
+                            <div class="overflow-hidden">
+                                <div class="fw-bold text-white text-truncate" style="max-width: 170px;">{{ auth()->user()->name }}</div>
+                                <div class="text-secondary small text-truncate" style="max-width: 170px;">{{ auth()->user()->email }}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.profile') }}" class="user-dropdown-item">
+                            <i class="bi bi-person-circle text-warning"></i>
+                            <span>Admin Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.settings') }}" class="user-dropdown-item">
+                            <i class="bi bi-gear-fill text-info"></i>
+                            <span>System Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.activity.logs') }}" class="user-dropdown-item">
+                            <i class="bi bi-clock-history text-success"></i>
+                            <span>Activity Logs</span>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider my-1 border-secondary" style="opacity: 0.2;"></li>
+                    <li>
+                        <a href="javascript:void(0)" class="user-dropdown-item danger-item triggerLogout">
+                            <i class="bi bi-box-arrow-right text-danger"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
         </div>
 
@@ -182,7 +240,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <div class="container-fluid mt-4">
+    <div class="main-content-body container-fluid">
         @yield('content')
     </div>
 
@@ -230,7 +288,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#logoutBtn').click(function(){
+    $(document).on('click', '#logoutBtn, .triggerLogout', function(){
         Swal.fire({
             title: 'Logout?',
             text: 'You will be signed out of your account.',

@@ -54,11 +54,25 @@ class PaymentController extends Controller
     );
 }
 
-public function export()
-{
-    return Excel::download(
-        new PaymentsExport,
-        'PaymentsReport.xlsx'
-    );
-}
+    public function export()
+    {
+        $format = request('type', 'excel');
+
+        if ($format === 'pdf') {
+            $payments = Payment::with([
+                'user',
+                'rental.book',
+                'subscription.plan',
+                'fine'
+            ])->latest()->get();
+
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.payments_pdf', compact('payments'));
+            return $pdf->download('PaymentsReport.pdf');
+        }
+
+        return Excel::download(
+            new PaymentsExport,
+            'PaymentsReport.xlsx'
+        );
+    }
 }

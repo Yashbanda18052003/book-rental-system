@@ -25,7 +25,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
-        'role'
+        'role',
+        'profile_picture',
     ];
 
     /**
@@ -60,5 +61,22 @@ class User extends Authenticatable
 public function notifications()
 {
     return $this->hasMany(Notification::class);
+}
+
+public function getProfilePictureUrlAttribute()
+{
+    if (!$this->profile_picture) {
+        return null;
+    }
+
+    if (file_exists(public_path($this->profile_picture))) {
+        return asset($this->profile_picture);
+    }
+
+    if (file_exists(public_path('storage/' . $this->profile_picture))) {
+        return asset('storage/' . $this->profile_picture);
+    }
+
+    return asset($this->profile_picture);
 }
 }

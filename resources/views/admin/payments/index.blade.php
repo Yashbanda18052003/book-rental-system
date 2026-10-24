@@ -9,12 +9,29 @@
 @endif
 
 <div class="mb-3">
-
-    <a href="{{ route('admin.payments.export') }}"
-       class="btn btn-success">
-        Export Excel
-    </a>
-
+    <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle d-inline-flex align-items-center gap-1"
+                type="button"
+                id="exportDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            <i class="bi bi-download"></i> Export Report
+        </button>
+        <ul class="dropdown-menu shadow" aria-labelledby="exportDropdown">
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('admin.payments.export', ['type' => 'excel']) }}">
+                    <i class="bi bi-file-earmark-excel text-success"></i> Export Excel (.xlsx)
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('admin.payments.export', ['type' => 'pdf']) }}">
+                    <i class="bi bi-file-earmark-pdf text-danger"></i> Export PDF (.pdf)
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <h2>Payment Management</h2>

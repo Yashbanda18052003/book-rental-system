@@ -60,8 +60,9 @@ public function returnBook($id)
     if ($returnDate->gt(Carbon::parse($rental->end_date))) {
         $lateDays = Carbon::parse($rental->end_date)
             ->diffInDays($returnDate);
-$setting = Setting::first();
-$fineAmount = $lateDays * $setting->fine_per_day;
+        $setting = Setting::first();
+        $finePerDay = $setting?->fine_per_day ?? 10;
+        $fineAmount = $lateDays * $finePerDay;
         $fine = \App\Models\Fine::create([
     'rental_id' => $rental->id,
     'user_id' => $rental->user_id,

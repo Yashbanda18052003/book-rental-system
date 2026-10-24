@@ -233,12 +233,10 @@ Route::post(
 */
 
 // Route::get('/test-mail', function () {
-
 //     Mail::raw('Email working successfully!', function ($message) {
-//         $message->to('yash.glsbca21@gmail.com')
+//         $message->to('demo@booknest.com')
 //                 ->subject('Laravel Mail Test');
 //     });
-
 //     return 'Mail Sent';
 // });
 

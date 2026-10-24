@@ -2,20 +2,78 @@
 
 @section('content')
 
-<a href="{{ route('reports.export.rentals') }}"
-   class="btn btn-success btn-sm">
-   Export Rentals
-</a>
+<div class="d-flex gap-2 mb-3">
 
-<a href="{{ route('reports.export.subscriptions') }}"
-   class="btn btn-primary btn-sm">
-   Export Subscriptions
-</a>
+    {{-- Rentals Export Dropdown --}}
+    <div class="dropdown">
+        <button class="btn btn-success btn-sm dropdown-toggle d-inline-flex align-items-center gap-1"
+                type="button"
+                data-bs-toggle="dropdown">
+            <i class="bi bi-download"></i> Export Rentals
+        </button>
+        <ul class="dropdown-menu shadow">
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.rentals', ['type' => 'excel']) }}">
+                    <i class="bi bi-file-earmark-excel text-success"></i> Excel (.xlsx)
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.rentals', ['type' => 'pdf']) }}">
+                    <i class="bi bi-file-earmark-pdf text-danger"></i> PDF (.pdf)
+                </a>
+            </li>
+        </ul>
+    </div>
 
-<a href="{{ route('reports.export.fines') }}"
-   class="btn btn-warning btn-sm">
-   Export Fines
-</a>
+    {{-- Subscriptions Export Dropdown --}}
+    <div class="dropdown">
+        <button class="btn btn-primary btn-sm dropdown-toggle d-inline-flex align-items-center gap-1"
+                type="button"
+                data-bs-toggle="dropdown">
+            <i class="bi bi-download"></i> Export Subscriptions
+        </button>
+        <ul class="dropdown-menu shadow">
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.subscriptions', ['type' => 'excel']) }}">
+                    <i class="bi bi-file-earmark-excel text-success"></i> Excel (.xlsx)
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.subscriptions', ['type' => 'pdf']) }}">
+                    <i class="bi bi-file-earmark-pdf text-danger"></i> PDF (.pdf)
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    {{-- Fines Export Dropdown --}}
+    <div class="dropdown">
+        <button class="btn btn-warning btn-sm dropdown-toggle d-inline-flex align-items-center gap-1"
+                type="button"
+                data-bs-toggle="dropdown">
+            <i class="bi bi-download"></i> Export Fines
+        </button>
+        <ul class="dropdown-menu shadow">
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.fines', ['type' => 'excel']) }}">
+                    <i class="bi bi-file-earmark-excel text-success"></i> Excel (.xlsx)
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="{{ route('reports.export.fines', ['type' => 'pdf']) }}">
+                    <i class="bi bi-file-earmark-pdf text-danger"></i> PDF (.pdf)
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
 
 <h2 class="mb-4">Reports Center</h2>
 

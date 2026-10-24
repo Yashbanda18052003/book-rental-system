@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login | BookNest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="icon"
       type="image/png"
@@ -55,14 +56,20 @@
                 </div>
                 <div class="mb-4">
                     <label>Password <span class="text-danger">*</span></label>
-                    <input
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        autocomplete="off"
-                        placeholder="Enter Password"
-                        maxlength="8"
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            name="password"
+                            id="loginPassword"
+                            class="form-control"
+                            autocomplete="off"
+                            placeholder="Enter Password"
+                            maxlength="12"
                         >
+                        <button class="password-toggle-btn" type="button" onclick="togglePasswordVisibility('loginPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                     @error('password')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -96,5 +103,20 @@
         </div>
     </div>
 </div>
+<script>
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+</script>
 </body>
 </html>

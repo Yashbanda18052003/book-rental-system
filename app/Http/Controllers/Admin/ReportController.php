@@ -42,27 +42,51 @@ class ReportController extends Controller
         );
     }
 
-public function exportRentals()
-{
-    return Excel::download(
-        new RentalsExport,
-        'RentalReports.xlsx'
-    );
-}
+    public function exportRentals()
+    {
+        $format = request('type', 'excel');
 
-public function exportSubscriptions()
-{
-    return Excel::download(
-        new SubscriptionsExport,
-        'SubscriptionReports.xlsx'
-    );
-}
+        if ($format === 'pdf') {
+            $rentals = Rental::with(['user', 'book'])->latest()->get();
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.rentals_pdf', compact('rentals'));
+            return $pdf->download('RentalReports.pdf');
+        }
 
-public function exportFines()
-{
-    return Excel::download(
-        new FinesExport,
-        'FineReports.xlsx'
-    );
-}
+        return Excel::download(
+            new RentalsExport,
+            'RentalReports.xlsx'
+        );
+    }
+
+    public function exportSubscriptions()
+    {
+        $format = request('type', 'excel');
+
+        if ($format === 'pdf') {
+            $subscriptions = Subscription::with(['user', 'plan'])->latest()->get();
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.subscriptions_pdf', compact('subscriptions'));
+            return $pdf->download('SubscriptionReports.pdf');
+        }
+
+        return Excel::download(
+            new SubscriptionsExport,
+            'SubscriptionReports.xlsx'
+        );
+    }
+
+    public function exportFines()
+    {
+        $format = request('type', 'excel');
+
+        if ($format === 'pdf') {
+            $fines = Fine::with(['user', 'rental.book'])->latest()->get();
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.fines_pdf', compact('fines'));
+            return $pdf->download('FineReports.pdf');
+        }
+
+        return Excel::download(
+            new FinesExport,
+            'FineReports.xlsx'
+        );
+    }
 }

@@ -32,7 +32,7 @@ class AuthController extends Controller
         'name' => 'required|min:3|max:100',
         'email' => 'required|email|unique:users,email',
         'phone' => 'required|unique:users,phone',
-        'password' => 'required|min:8',
+        'password' => 'required|min:8|max:12',
         'password_confirmation' => 'required|same:password',
     ], [
         'password_confirmation.same' => 'Confirm password does not match.',
@@ -100,7 +100,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8|max:12'
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {

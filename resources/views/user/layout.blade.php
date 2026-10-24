@@ -16,30 +16,81 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position: relative; z-index: 1050;">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="{{ asset('images/booknest-logo.png') }}"
-                 alt="BookNest"
-                 width="40"
-                 height="40"
-                 class="rounded-circle me-2">
-            <span class="fw-bold">BookNest</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#userNavbar" aria-controls="userNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<div class="admin-wrapper">
+
+<!-- Sidebar -->
+<div class="admin-sidebar" id="sidebar">
+
+    <div class="sidebar-logo text-center">
+        <img src="{{ asset('images/booknest-logo.png') }}"
+             alt="BookNest"
+             class="sidebar-logo-img">
+        <h4 class="sidebar-logo-text">BookNest</h4>
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('catalog') }}" class="{{ request()->routeIs('catalog') ? 'active' : '' }}">
+                <i class="bi bi-book"></i>
+                <span>Books</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('my.rentals') }}" class="{{ request()->routeIs('my.rentals') ? 'active' : '' }}">
+                <i class="bi bi-journal-check"></i>
+                <span>My Rentals</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('my.reservations') }}" class="{{ request()->routeIs('my.reservations') ? 'active' : '' }}">
+                <i class="bi bi-calendar-check"></i>
+                <span>My Reservations</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('membership.plans') }}" class="{{ request()->routeIs('membership.plans') ? 'active' : '' }}">
+                <i class="bi bi-award"></i>
+                <span>Membership Plans</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('my.subscription') }}" class="{{ request()->routeIs('my.subscription') ? 'active' : '' }}">
+                <i class="bi bi-credit-card"></i>
+                <span>My Subscription</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('my.fines') }}" class="{{ request()->routeIs('my.fines') ? 'active' : '' }}">
+                <i class="bi bi-cash-stack"></i>
+                <span>My Fines</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">
+                <i class="bi bi-person-fill"></i>
+                <span>My Profile</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<!-- Content -->
+<div class="admin-content" id="content">
+
+    <div class="admin-topbar d-flex justify-content-between align-items-center">
+
+        <button class="btn btn-outline-light" id="toggleSidebar">
+            <i class="bi bi-list"></i>
         </button>
-        <div class="collapse navbar-collapse" id="userNavbar">
-            <div class="navbar-nav me-auto">
-                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                <a class="nav-link" href="{{ route('catalog') }}">Books</a>
-                <a class="nav-link" href="{{ route('my.rentals') }}">My Rentals</a>
-                <a class="nav-link" href="{{ route('my.reservations') }}">My Reservations</a>
-                <a class="nav-link" href="{{ route('membership.plans') }}">Membership Plans</a>
-                <a class="nav-link" href="{{ route('my.subscription') }}">My Subscription</a>
-                <a class="nav-link" href="{{ route('my.fines') }}">My Fines</a>
-                <a class="nav-link" href="{{ route('profile') }}">My Profile</a>
-            </div>
+
+        <div class="d-flex gap-2 align-items-center">
 
             @php
                 $unreadCount   = \App\Models\Notification::where('user_id', auth()->id())->where('is_read', false)->count();
@@ -47,7 +98,7 @@
             @endphp
 
             {{-- Notification Bell --}}
-            <div class="dropdown me-2">
+            <div class="dropdown me-1">
                 <button class="btn btn-outline-light position-relative"
                         type="button"
                         id="notifDropdown"
@@ -97,23 +148,83 @@
                 </ul>
             </div>
 
-            <a href="javascript:void(0)"
-               id="logoutBtn"
-               class="btn btn-danger btn-sm mt-2 mt-lg-0">
-                Logout
-            </a>
+            {{-- User Profile Dropdown --}}
+            <div class="dropdown ms-1">
+                <button class="btn profile-dropdown-btn"
+                        type="button"
+                        id="userProfileDropdown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <div class="user-avatar-wrapper">
+                        @if(auth()->user()->profile_picture_url)
+                            <img src="{{ auth()->user()->profile_picture_url }}" alt="{{ auth()->user()->name }}">
+                        @else
+                            <span class="user-avatar-initial">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                        @endif
+                    </div>
+                    <span class="d-none d-md-inline fw-semibold text-white ms-1">{{ auth()->user()->name }}</span>
+                    <i class="bi bi-chevron-down text-secondary small ms-1"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow user-dropdown-menu" aria-labelledby="userProfileDropdown">
+                    <li class="user-dropdown-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="user-avatar-wrapper lg">
+                                @if(auth()->user()->profile_picture_url)
+                                    <img src="{{ auth()->user()->profile_picture_url }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <span class="user-avatar-initial lg">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                                @endif
+                            </div>
+                            <div class="overflow-hidden">
+                                <div class="fw-bold text-white text-truncate" style="max-width: 170px;">{{ auth()->user()->name }}</div>
+                                <div class="text-secondary small text-truncate" style="max-width: 170px;">{{ auth()->user()->email }}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile') }}" class="user-dropdown-item">
+                            <i class="bi bi-person-circle text-warning"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('my.rentals') }}" class="user-dropdown-item">
+                            <i class="bi bi-journal-check text-primary"></i>
+                            <span>My Rentals</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('my.subscription') }}" class="user-dropdown-item">
+                            <i class="bi bi-credit-card text-info"></i>
+                            <span>My Subscription</span>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider my-1 border-secondary" style="opacity: 0.2;"></li>
+                    <li>
+                        <a href="javascript:void(0)" class="user-dropdown-item danger-item triggerLogout">
+                            <i class="bi bi-box-arrow-right text-danger"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
+
     </div>
-</nav>
 
-{{-- Scripts loaded BEFORE content so inline page scripts (flatpickr, $, Swal) can use them --}}
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- Scripts loaded BEFORE content so inline page scripts (flatpickr, $, Swal) can use them --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container mt-4">
-    @yield('content')
+    <div class="main-content-body container-fluid">
+        @yield('content')
+    </div>
+
+</div>
+
 </div>
 
 @if(session('success'))
@@ -163,7 +274,16 @@ $(document).on('submit', '.rentForm', function(e){
 });
 
 $(document).ready(function(){
-    $('#logoutBtn').click(function(){
+    $('#toggleSidebar').click(function(){
+        if(window.innerWidth <= 991){
+            $('#sidebar').toggleClass('active');
+        } else {
+            $('#sidebar').toggleClass('collapsed');
+            $('#content').toggleClass('expanded');
+        }
+    });
+
+    $(document).on('click', '#logoutBtn, .triggerLogout', function(){
         Swal.fire({
             title: 'Logout?',
             text: 'You will be signed out of your account.',
