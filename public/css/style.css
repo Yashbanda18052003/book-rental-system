@@ -878,12 +878,52 @@ BOOKNEST ADMIN SIDEBAR
     box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
 }
 
-/* Password Toggle Icon inside Field */
+/* Embedded Input Icons & Password Toggle inside Field */
+.input-icon-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper .input-field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary, #9ca3af);
+    font-size: 1.05rem;
+    pointer-events: none;
+    z-index: 5;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.input-icon-wrapper .form-control {
+    padding-left: 42px !important;
+    width: 100%;
+}
+
+.input-icon-wrapper.password-wrapper .form-control {
+    padding-left: 42px !important;
+    padding-right: 42px !important;
+}
+
+.input-icon-wrapper:focus-within .input-field-icon {
+    color: var(--accent-gold, #d4af37) !important;
+}
+
+.input-icon-wrapper .form-control:disabled,
+.input-icon-wrapper .form-control[readonly] {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    color: var(--text-secondary, #9ca3af) !important;
+    cursor: not-allowed;
+}
+
 .password-wrapper {
     position: relative;
     width: 100%;
 }
-.password-wrapper .form-control {
+.password-wrapper:not(.input-icon-wrapper) .form-control {
     padding-right: 42px !important;
 }
 .password-toggle-btn {
@@ -1067,7 +1107,7 @@ BOOKNEST ADMIN SIDEBAR
     border: 4px solid var(--accent-gold) !important;
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
     background: var(--bg-primary);
-    display: block !important;
+    display: block;
 }
 
 .profile-avatar-initial {

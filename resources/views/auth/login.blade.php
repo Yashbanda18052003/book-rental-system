@@ -40,23 +40,26 @@
                 @csrf
                 <div class="mb-3">
                     <label>Email Address <span class="text-danger">*</span></label>
-                    <input
-                        type="email"
-                        name="email"
-                        class="form-control"
-                        value="{{ old('email') }}"
-                        maxlength="50"
-                        autocomplete="off"
-                        placeholder="Enter Email Address"
-                        
-                    >
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-envelope input-field-icon"></i>
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            value="{{ old('email') }}"
+                            maxlength="50"
+                            autocomplete="off"
+                            placeholder="Enter Email Address"
+                        >
+                    </div>
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="mb-4">
                     <label>Password <span class="text-danger">*</span></label>
-                    <div class="password-wrapper">
+                    <div class="input-icon-wrapper password-wrapper">
+                        <i class="bi bi-lock input-field-icon"></i>
                         <input
                             type="password"
                             name="password"

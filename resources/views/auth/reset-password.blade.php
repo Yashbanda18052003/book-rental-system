@@ -50,62 +50,50 @@
                        value="{{ $token }}">
 
                 <div class="mb-3">
-
                     <label>Email Address <span class="text-danger">*</span></label>
-
-                    <input type="email"
-       name="email"
-       class="form-control">
-
-@error('email')
-    <small class="text-danger">
-        {{ $message }}
-    </small>
-@enderror
-
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-envelope input-field-icon"></i>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email Address">
+                    </div>
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
-
                     <label>New Password <span class="text-danger">*</span></label>
-
-                    <div class="password-wrapper">
+                    <div class="input-icon-wrapper password-wrapper">
+                        <i class="bi bi-lock input-field-icon"></i>
                         <input type="password"
                                name="password"
                                id="resetPassword"
                                class="form-control"
+                               placeholder="Minimum 8 characters"
                                maxlength="12">
                         <button class="password-toggle-btn" type="button" onclick="togglePasswordVisibility('resetPassword', this)">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
-       <small class="text-secondary">
-8-12 characters
-</small>
-
-@error('password')
-    <small class="text-danger">
-        {{ $message }}
-    </small>
-@enderror
-
+                    <small class="text-secondary">8-12 characters</small>
+                    @error('password')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
-
                     <label>Confirm Password <span class="text-danger">*</span></label>
-
-                    <div class="password-wrapper">
+                    <div class="input-icon-wrapper password-wrapper">
+                        <i class="bi bi-lock-fill input-field-icon"></i>
                         <input type="password"
                                name="password_confirmation"
                                id="resetConfirmPassword"
                                class="form-control"
+                               placeholder="Re-enter password"
                                maxlength="12">
                         <button class="password-toggle-btn" type="button" onclick="togglePasswordVisibility('resetConfirmPassword', this)">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
-
                 </div>
 
                 <button class="btn btn-warning w-100 py-2 mb-2">

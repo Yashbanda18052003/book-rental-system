@@ -21,13 +21,14 @@
                          id="admin_avatar_preview_img" 
                          class="profile-avatar-img">
                 @else
-                    <img src="" 
-                         alt="{{ auth()->user()->name }}" 
-                         id="admin_avatar_preview_img" 
-                         class="profile-avatar-img d-none">
                     <div id="admin_avatar_preview_initial" class="profile-avatar-initial">
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                     </div>
+                    <img src="" 
+                         alt="{{ auth()->user()->name }}" 
+                         id="admin_avatar_preview_img" 
+                         class="profile-avatar-img"
+                         style="display: none !important;">
                 @endif
 
                 <label for="admin_profile_picture_input" class="profile-avatar-upload-btn" title="Upload Profile Picture">
@@ -77,8 +78,8 @@
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label">Full Name <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-person"></i></span>
+                        <div class="input-icon-wrapper">
+                            <i class="bi bi-person input-field-icon"></i>
                             <input type="text" name="name" class="form-control" value="{{ old('name', auth()->user()->name) }}" required>
                         </div>
                         @error('name')
@@ -88,8 +89,8 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Phone Number <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-telephone"></i></span>
+                        <div class="input-icon-wrapper">
+                            <i class="bi bi-telephone input-field-icon"></i>
                             <input type="text" name="phone" class="form-control" value="{{ old('phone', auth()->user()->phone) }}" required>
                         </div>
                         @error('phone')
@@ -99,16 +100,16 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Email Address (Read-only)</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-envelope"></i></span>
+                        <div class="input-icon-wrapper">
+                            <i class="bi bi-envelope input-field-icon"></i>
                             <input type="email" class="form-control" value="{{ auth()->user()->email }}" readonly disabled style="opacity: 0.7;">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Role</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-shield-check"></i></span>
+                        <div class="input-icon-wrapper">
+                            <i class="bi bi-shield-check input-field-icon"></i>
                             <input type="text" class="form-control" value="Administrator" readonly disabled style="opacity: 0.7;">
                         </div>
                     </div>
@@ -122,7 +123,8 @@
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label">New Password <small class="text-muted">(Leave blank to keep current)</small></label>
-                        <div class="password-wrapper">
+                        <div class="input-icon-wrapper password-wrapper">
+                            <i class="bi bi-lock input-field-icon"></i>
                             <input type="password" name="password" id="adminNewPassword" class="form-control" placeholder="Minimum 8 characters" maxlength="12">
                             <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('adminNewPassword', this)">
                                 <i class="bi bi-eye"></i>
@@ -135,7 +137,8 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Confirm New Password</label>
-                        <div class="password-wrapper">
+                        <div class="input-icon-wrapper password-wrapper">
+                            <i class="bi bi-lock-fill input-field-icon"></i>
                             <input type="password" name="password_confirmation" id="adminConfirmPassword" class="form-control" placeholder="Re-enter new password" maxlength="12">
                             <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('adminConfirmPassword', this)">
                                 <i class="bi bi-eye"></i>

@@ -94,8 +94,14 @@ One-click export of platform records (Rentals, Subscriptions, Fines, Payments) t
 
 ---
 
-### 11. Split-Screen Branded Authentication
-Custom split-screen authentication interface featuring secure session handling and password visibility toggles.
+### 11. Reader Profile & Security Management
+Reader account settings featuring integrated embedded input icons, avatar uploads, membership badges, and password change controls.
+![User Profile](assets/screenshots/13_user_profile.png)
+
+---
+
+### 12. Split-Screen Branded Authentication
+Custom split-screen authentication interface featuring secure session handling, embedded field icons, and password visibility toggles.
 | Sign In Portal | Reader Registration |
 | :---: | :---: |
 | ![Login](assets/screenshots/11_auth_login.png) | ![Register](assets/screenshots/12_auth_register.png) |
